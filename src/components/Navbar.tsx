@@ -263,10 +263,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                       ? 'text-slate-900 bg-slate-100 shadow-xs'
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                   }`}
-                  title="Kelola Akun Login User (CRUD)"
+                  title="Tambah & Kelola User"
                 >
                   <UserPlus className="w-4 h-4 text-purple-600" />
-                  <span>Kelola User</span>
+                  <span>Tambah User</span>
                 </button>
 
 
@@ -457,7 +457,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       : 'bg-slate-100 text-slate-600'
                   }`}
                 >
-                  Tambah User (CRUD)
+                  Tambah User
                 </button>
                 <button
                   onClick={() => onSelectAdminTab('audit_berita_acara')}

@@ -514,7 +514,7 @@ export const AdminSchoolSettings: React.FC<AdminSchoolSettingsProps> = ({
             Panel Administrator Lembaga
           </h2>
           <p className="text-xs text-slate-500 mt-1">
-            Profil lembaga OSIS/OSIM, manajemen multi-periode, SK Panitia, kelola akun login user (CRUD), serta berita acara resmi.
+            Profil lembaga OSIS/OSIM, manajemen multi-periode, SK Panitia, kelola akun login user, serta berita acara resmi.
           </p>
         </div>
 
@@ -600,7 +600,7 @@ export const AdminSchoolSettings: React.FC<AdminSchoolSettingsProps> = ({
           }`}
         >
           <Users className="w-4 h-4 text-purple-400" />
-          <span>Tambah User (CRUD) ({userAccounts.length})</span>
+          <span>Tambah User ({userAccounts.length})</span>
         </button>
 
 
@@ -1216,7 +1216,7 @@ export const AdminSchoolSettings: React.FC<AdminSchoolSettingsProps> = ({
                 </span>
               </div>
               <h3 className="font-bold text-slate-900 text-sm">
-                Kelola User Petugas (Admin & Panitia) - CRUD Lengkap
+                Kelola User Petugas (Admin & Panitia)
               </h3>
               <p className="text-xs text-slate-500">
                 Tambah akun baru, perbarui nama/password/role, atau hapus akun login petugas.
@@ -1242,7 +1242,7 @@ export const AdminSchoolSettings: React.FC<AdminSchoolSettingsProps> = ({
                     <th className="py-3 px-4">Role Akses</th>
                     <th className="py-3 px-4">Nomor NIP / SK</th>
                     <th className="py-3 px-4">Status</th>
-                    <th className="py-3 px-4 text-right">Aksi (CRUD)</th>
+                    <th className="py-3 px-4 text-right">Aksi</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
@@ -1633,7 +1633,7 @@ export const AdminSchoolSettings: React.FC<AdminSchoolSettingsProps> = ({
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xs">
           <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4">
             <h4 className="font-bold text-slate-900 text-base">
-              {editingUser ? `Edit Akun User: ${editingUser.username}` : 'Tambah User Login Petugas Baru (CRUD)'}
+              {editingUser ? `Edit Akun User: ${editingUser.username}` : 'Tambah User Login Petugas Baru'}
             </h4>
 
             <form onSubmit={handleSaveUser} className="space-y-3.5 text-xs">
