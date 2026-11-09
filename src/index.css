@@ -59,14 +59,4 @@
     border-radius: 8px !important;
     margin-bottom: 3mm !important;
   }
-
-  .print-berita-acara {
-    border: none !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    width: 100% !important;
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-  }
 }

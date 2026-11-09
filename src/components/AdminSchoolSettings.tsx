@@ -27,7 +27,6 @@ import {
   LogOut,
   RotateCcw,
   Database,
-  FileDown,
 } from 'lucide-react';
 import type { Committee, ElectionPeriod, OrgType, SchoolConfig, UserAccount, StaffRole } from '../types/index.ts';
 import { votingStore } from '../services/storage.ts';
@@ -35,7 +34,6 @@ import { LOGO_PRESETS } from '../data/logoPresets';
 import { ConfirmModal } from './ConfirmModal';
 import { Toast } from './Toast';
 import { SupabaseGuideModal } from './SupabaseGuideModal';
-import { exportBeritaAcaraToWord } from '../services/beritaAcaraExport';
 
 export type AdminTab = 'school' | 'logo' | 'periods' | 'committees' | 'users' | 'audit_berita_acara' | 'database_guide';
 
@@ -460,19 +458,7 @@ export const AdminSchoolSettings: React.FC<AdminSchoolSettingsProps> = ({
   };
 
   const handlePrintBeritaAcara = () => {
-    showToast('info', "Membuka dialog cetak. Pilih 'Simpan sebagai PDF' (Save as PDF) untuk mengunduh dokumen A4.");
-    setTimeout(() => {
-      window.print();
-    }, 150);
-  };
-
-  const handleExportWord = () => {
-    try {
-      exportBeritaAcaraToWord(activePeriod, schoolConfig, stats, committees, winningCandidate);
-      showToast('success', 'Dokumen Berita Acara berhasil diekspor ke format Microsoft Word (.doc)!');
-    } catch {
-      showToast('error', 'Gagal mengekspor dokumen ke Word.');
-    }
+    window.print();
   };
 
   const handleResetVotes = () => {
@@ -1335,38 +1321,28 @@ export const AdminSchoolSettings: React.FC<AdminSchoolSettingsProps> = ({
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+            <div className="flex flex-wrap items-center gap-2 shrink-0">
               <button
                 onClick={handleResetVotes}
                 className="flex items-center gap-1.5 px-3.5 py-2.5 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 rounded-xl text-xs font-bold transition-all shadow-xs cursor-pointer active:scale-95"
                 title="Kosongkan seluruh kotak suara masuk periode aktif"
               >
                 <RotateCcw className="w-4 h-4 text-amber-600" />
-                <span>Reset Suara ({stats.totalVotes})</span>
-              </button>
-
-              <button
-                onClick={handleExportWord}
-                className="flex items-center gap-2 px-4 py-2.5 bg-blue-50 hover:bg-blue-100 text-blue-700 hover:text-blue-800 border border-blue-200 rounded-xl text-xs font-bold transition-all shadow-xs active:scale-95 cursor-pointer"
-                title="Unduh Berita Acara dalam format Microsoft Word (.doc)"
-              >
-                <FileDown className="w-4 h-4 text-blue-600" />
-                <span>Ekspor ke Word (.doc)</span>
+                <span>Reset Suara Masuk ({stats.totalVotes})</span>
               </button>
 
               <button
                 onClick={handlePrintBeritaAcara}
-                className="flex items-center gap-2 px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all shadow-md active:scale-95 cursor-pointer"
-                title="Unduh / Simpan sebagai file PDF atau cetak dokumen A4"
+                className="flex items-center gap-2 px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all shadow-md active:scale-95 shrink-0"
               >
                 <Printer className="w-4 h-4 text-emerald-400" />
-                <span>Ekspor ke PDF / Cetak A4</span>
+                <span>Cetak Berita Acara (Print A4)</span>
               </button>
             </div>
           </div>
 
           {/* Printable Berita Acara Sheet */}
-          <div className="bg-white rounded-2xl border-2 border-slate-300 p-8 sm:p-12 shadow-sm space-y-6 print-berita-acara print:border-none print:shadow-none print:p-0">
+          <div className="bg-white rounded-2xl border-2 border-slate-300 p-8 sm:p-12 shadow-sm space-y-6 print:border-none print:shadow-none print:p-0">
             <div className="flex items-center justify-center gap-6 border-b-2 border-slate-900 pb-4">
               {schoolConfig.logo_url && (
                 <div className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 flex items-center justify-center">
