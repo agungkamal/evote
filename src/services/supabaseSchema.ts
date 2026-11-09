@@ -29,7 +29,6 @@ CREATE TABLE IF NOT EXISTS public.school_config (
     logo_url TEXT,
     school_address TEXT DEFAULT '',
     principal_name VARCHAR(255) DEFAULT '',
-    kop_url TEXT DEFAULT '',
     updated_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now())
 );
 

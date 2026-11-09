@@ -267,9 +267,6 @@ app.post('/api/voting-data/sync', (req: Request, res: Response) => {
       if (config.logo_url && config.logo_url.startsWith('data:image/')) {
         config.logo_url = saveBase64Image(config.logo_url, 'school_logo');
       }
-      if (config.kop_url && config.kop_url.startsWith('data:image/')) {
-        config.kop_url = saveBase64Image(config.kop_url, 'kop_sekolah');
-      }
       store.school_config = { ...store.school_config, ...config };
       changed = true;
     }

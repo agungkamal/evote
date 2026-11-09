@@ -20,7 +20,6 @@ import {
   UploadCloud,
   Database,
   BookOpen,
-  UserCheck,
 } from 'lucide-react';
 import type { AuthStaffUser, ElectionPeriod, SchoolConfig } from '../types/index.ts';
 import { CommitteeTab } from './CommitteeDashboard';
@@ -230,18 +229,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <span>Upload Logo</span>
                 </button>
 
-                <button
-                  onClick={() => onSelectAdminTab('kop')}
-                  className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-bold rounded-lg transition-colors whitespace-nowrap shrink-0 ${
-                    currentView === 'admin' && adminTab === 'kop'
-                      ? 'text-slate-900 bg-slate-100 shadow-xs'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                  }`}
-                  title="Upload KOP Sekolah"
-                >
-                  <FileText className="w-4 h-4 text-purple-600" />
-                  <span>KOP Sekolah</span>
-                </button>
 
                 <button
                   onClick={() => onSelectAdminTab('periods')}
@@ -282,18 +269,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <span>Kelola User</span>
                 </button>
 
-                <button
-                  onClick={() => onSelectAdminTab('attendance')}
-                  className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-bold rounded-lg transition-colors whitespace-nowrap shrink-0 ${
-                    currentView === 'admin' && adminTab === 'attendance'
-                      ? 'text-slate-900 bg-slate-100 shadow-xs'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                  }`}
-                  title="Daftar Kehadiran Pemilih (Presensi DPT & Ekspor PDF)"
-                >
-                  <UserCheck className="w-4 h-4 text-purple-600" />
-                  <span>Daftar Hadir</span>
-                </button>
 
                 <button
                   onClick={() => onSelectAdminTab('audit_berita_acara')}
@@ -455,16 +430,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                   Upload Logo
                 </button>
                 <button
-                  onClick={() => onSelectAdminTab('kop')}
-                  className={`px-3 py-1 text-xs font-bold rounded-lg whitespace-nowrap ${
-                    currentView === 'admin' && adminTab === 'kop'
-                      ? 'bg-slate-900 text-white'
-                      : 'bg-slate-100 text-slate-600'
-                  }`}
-                >
-                  KOP Sekolah
-                </button>
-                <button
                   onClick={() => onSelectAdminTab('periods')}
                   className={`px-3 py-1 text-xs font-bold rounded-lg whitespace-nowrap ${
                     currentView === 'admin' && adminTab === 'periods'
@@ -493,16 +458,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                   }`}
                 >
                   Tambah User (CRUD)
-                </button>
-                <button
-                  onClick={() => onSelectAdminTab('attendance')}
-                  className={`px-3 py-1 text-xs font-bold rounded-lg whitespace-nowrap ${
-                    currentView === 'admin' && adminTab === 'attendance'
-                      ? 'bg-slate-900 text-white'
-                      : 'bg-slate-100 text-slate-600'
-                  }`}
-                >
-                  Daftar Hadir
                 </button>
                 <button
                   onClick={() => onSelectAdminTab('audit_berita_acara')}

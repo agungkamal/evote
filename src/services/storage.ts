@@ -392,7 +392,6 @@ class VotingStore {
           logo_url: normalizeAssetUrl(cfg.logo_url || INITIAL_SCHOOL_CONFIG.logo_url),
           school_address: cfg.school_address || '',
           principal_name: cfg.principal_name || '',
-          kop_url: cfg.kop_url ? normalizeAssetUrl(cfg.kop_url) : '',
         };
         this.saveToLocalCache(STORAGE_KEYS.SCHOOL_CONFIG, cleanCfg);
       }
@@ -480,7 +479,6 @@ class VotingStore {
   private sanitizeLoadedData<T>(key: string, data: any): T {
     if (key === STORAGE_KEYS.SCHOOL_CONFIG && data) {
       if (data.logo_url) data.logo_url = normalizeAssetUrl(data.logo_url);
-      if (data.kop_url) data.kop_url = normalizeAssetUrl(data.kop_url);
       if (data.school_name && data.school_name.includes('Harapan Bangsa')) {
         data.school_name = 'SMKS PGRI 2 PALIMANAN';
       }
@@ -703,19 +701,13 @@ class VotingStore {
   public getSchoolConfig(): SchoolConfig {
     const config = this.load<SchoolConfig>(STORAGE_KEYS.SCHOOL_CONFIG, INITIAL_SCHOOL_CONFIG);
     config.logo_url = normalizeAssetUrl(config.logo_url);
-    if (config.kop_url) {
-      config.kop_url = normalizeAssetUrl(config.kop_url);
-    }
     return config;
   }
 
   public updateSchoolConfig(config: Partial<SchoolConfig>): void {
     const current = this.getSchoolConfig();
     const cleanLogo = config.logo_url ? normalizeAssetUrl(config.logo_url) : current.logo_url;
-    const cleanKop = config.kop_url !== undefined
-      ? (config.kop_url ? normalizeAssetUrl(config.kop_url) : '')
-      : (current.kop_url || '');
-    const updated = { ...current, ...config, logo_url: cleanLogo, kop_url: cleanKop };
+    const updated = { ...current, ...config, logo_url: cleanLogo };
     this.save(STORAGE_KEYS.SCHOOL_CONFIG, updated);
     this.addAuditLog('Pengaturan Sekolah Diperbarui', `Nama: ${updated.school_name}, Tipe: ${updated.organization_type}`, 'Admin Sekolah');
 
@@ -723,17 +715,10 @@ class VotingStore {
     if (supabase) {
       const syncToSupabase = async () => {
         let finalLogo = updated.logo_url;
-        let finalKop = updated.kop_url;
         if (config.logo_url && config.logo_url.startsWith('data:image/')) {
           finalLogo = await this.uploadAsset(config.logo_url, 'school_logo');
           if (finalLogo && finalLogo !== updated.logo_url) {
             this.save(STORAGE_KEYS.SCHOOL_CONFIG, { ...updated, logo_url: finalLogo }, false);
-          }
-        }
-        if (config.kop_url && config.kop_url.startsWith('data:image/')) {
-          finalKop = await this.uploadAsset(config.kop_url, 'kop_sekolah');
-          if (finalKop && finalKop !== updated.kop_url) {
-            this.save(STORAGE_KEYS.SCHOOL_CONFIG, { ...updated, kop_url: finalKop }, false);
           }
         }
         await supabase.from('school_config').upsert(
@@ -744,7 +729,6 @@ class VotingStore {
             logo_url: finalLogo,
             school_address: updated.school_address,
             principal_name: updated.principal_name,
-            kop_url: finalKop || '',
             updated_at: new Date().toISOString(),
           },
           { onConflict: 'id' }
@@ -758,13 +742,6 @@ class VotingStore {
       this.uploadAsset(config.logo_url, 'school_logo').then((url) => {
         if (url && url !== config.logo_url) {
           this.save(STORAGE_KEYS.SCHOOL_CONFIG, { ...updated, logo_url: url });
-        }
-      });
-    }
-    if (config.kop_url && config.kop_url.startsWith('data:image/')) {
-      this.uploadAsset(config.kop_url, 'kop_sekolah').then((url) => {
-        if (url && url !== config.kop_url) {
-          this.save(STORAGE_KEYS.SCHOOL_CONFIG, { ...updated, kop_url: url });
         }
       });
     }

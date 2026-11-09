@@ -77,7 +77,6 @@ export interface SchoolConfig {
   logo_url: string;
   school_address: string;
   principal_name: string;
-  kop_url?: string;
 }
 
 export interface AuditLog {
