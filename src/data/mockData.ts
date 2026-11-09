@@ -6,6 +6,7 @@ export const INITIAL_SCHOOL_CONFIG: SchoolConfig = {
   logo_url: '/assets/images/school_emblem_logo_1793677969399.jpg',
   school_address: 'Jl. Pendidikan Merdeka No. 45, Jakarta Pusat',
   principal_name: 'Drs. H. Mulyadi, M.Pd.',
+  kop_url: '',
 };
 
 export const INITIAL_PERIODS: ElectionPeriod[] = [
