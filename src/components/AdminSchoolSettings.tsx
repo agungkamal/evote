@@ -27,6 +27,7 @@ import {
   LogOut,
   RotateCcw,
   Database,
+  ClipboardCheck,
 } from 'lucide-react';
 import type { Committee, ElectionPeriod, OrgType, SchoolConfig, UserAccount, StaffRole } from '../types/index.ts';
 import { votingStore } from '../services/storage.ts';
@@ -34,8 +35,10 @@ import { LOGO_PRESETS } from '../data/logoPresets';
 import { ConfirmModal } from './ConfirmModal';
 import { Toast } from './Toast';
 import { SupabaseGuideModal } from './SupabaseGuideModal';
+import { AdminTandaTerima } from './AdminTandaTerima';
+import { AdminAttendanceList } from './AdminAttendanceList';
 
-export type AdminTab = 'school' | 'logo' | 'periods' | 'committees' | 'users' | 'audit_berita_acara' | 'database_guide';
+export type AdminTab = 'school' | 'logo' | 'periods' | 'committees' | 'users' | 'tanda_terima' | 'attendance' | 'audit_berita_acara' | 'database_guide';
 
 interface AdminSchoolSettingsProps {
   activePeriod: ElectionPeriod;
@@ -601,6 +604,30 @@ export const AdminSchoolSettings: React.FC<AdminSchoolSettingsProps> = ({
         >
           <Users className="w-4 h-4 text-purple-400" />
           <span>Tambah User ({userAccounts.length})</span>
+        </button>
+
+        <button
+          onClick={() => handleTabClick('tanda_terima')}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition-colors ${
+            activeTab === 'tanda_terima'
+              ? 'bg-slate-900 text-white shadow-xs'
+              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+          }`}
+        >
+          <ClipboardCheck className="w-4 h-4 text-purple-400" />
+          <span>Tanda Terima Kartu/Surat Suara</span>
+        </button>
+
+        <button
+          onClick={() => handleTabClick('attendance')}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition-colors ${
+            activeTab === 'attendance'
+              ? 'bg-slate-900 text-white shadow-xs'
+              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+          }`}
+        >
+          <UserCheck className="w-4 h-4 text-purple-400" />
+          <span>Daftar Hadir Pemilih</span>
         </button>
 
 
@@ -1306,6 +1333,24 @@ export const AdminSchoolSettings: React.FC<AdminSchoolSettingsProps> = ({
         </div>
       )}
 
+
+      {/* ================= TAB: TANDA TERIMA KARTU PEMILIH / SURAT SUARA ================= */}
+      {activeTab === 'tanda_terima' && (
+        <AdminTandaTerima
+          activePeriod={activePeriod}
+          schoolConfig={schoolConfig}
+          committees={committees}
+        />
+      )}
+
+      {/* ================= TAB: DAFTAR KEHADIRAN PEMILIH (PRESENSI DPT) ================= */}
+      {activeTab === 'attendance' && (
+        <AdminAttendanceList
+          activePeriod={activePeriod}
+          schoolConfig={schoolConfig}
+          committees={committees}
+        />
+      )}
 
       {/* ================= TAB 5: AUDIT & BERITA ACARA ================= */}
       {activeTab === 'audit_berita_acara' && (

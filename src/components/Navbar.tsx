@@ -20,6 +20,8 @@ import {
   UploadCloud,
   Database,
   BookOpen,
+  ClipboardCheck,
+  UserCheck,
 } from 'lucide-react';
 import type { AuthStaffUser, ElectionPeriod, SchoolConfig } from '../types/index.ts';
 import { CommitteeTab } from './CommitteeDashboard';
@@ -269,6 +271,32 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <span>Tambah User</span>
                 </button>
 
+                <button
+                  onClick={() => onSelectAdminTab('tanda_terima')}
+                  className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-bold rounded-lg transition-colors whitespace-nowrap shrink-0 ${
+                    currentView === 'admin' && adminTab === 'tanda_terima'
+                      ? 'text-slate-900 bg-slate-100 shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                  }`}
+                  title="Tanda Terima Kartu Pemilih / Surat Suara (Cetak A4 & PDF)"
+                >
+                  <ClipboardCheck className="w-4 h-4 text-purple-600" />
+                  <span>Tanda Terima</span>
+                </button>
+
+                <button
+                  onClick={() => onSelectAdminTab('attendance')}
+                  className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-bold rounded-lg transition-colors whitespace-nowrap shrink-0 ${
+                    currentView === 'admin' && adminTab === 'attendance'
+                      ? 'text-slate-900 bg-slate-100 shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                  }`}
+                  title="Daftar Kehadiran Pemilih (Presensi DPT & Ekspor PDF)"
+                >
+                  <UserCheck className="w-4 h-4 text-purple-600" />
+                  <span>Daftar Hadir</span>
+                </button>
+
 
                 <button
                   onClick={() => onSelectAdminTab('audit_berita_acara')}
@@ -458,6 +486,26 @@ export const Navbar: React.FC<NavbarProps> = ({
                   }`}
                 >
                   Tambah User
+                </button>
+                <button
+                  onClick={() => onSelectAdminTab('tanda_terima')}
+                  className={`px-3 py-1 text-xs font-bold rounded-lg whitespace-nowrap ${
+                    currentView === 'admin' && adminTab === 'tanda_terima'
+                      ? 'bg-slate-900 text-white'
+                      : 'bg-slate-100 text-slate-600'
+                  }`}
+                >
+                  Tanda Terima
+                </button>
+                <button
+                  onClick={() => onSelectAdminTab('attendance')}
+                  className={`px-3 py-1 text-xs font-bold rounded-lg whitespace-nowrap ${
+                    currentView === 'admin' && adminTab === 'attendance'
+                      ? 'bg-slate-900 text-white'
+                      : 'bg-slate-100 text-slate-600'
+                  }`}
+                >
+                  Daftar Hadir
                 </button>
                 <button
                   onClick={() => onSelectAdminTab('audit_berita_acara')}
